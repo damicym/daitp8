@@ -1,6 +1,7 @@
 import DBConfig from '../configs/db-config.js'
 import pkg from 'pg'
 const { Client } = pkg
+import logHelper from '../helpers/validaciones-helpers.js'
 
 export default class ProvinceRepository {
 	getAllAsync = async () => {
@@ -13,7 +14,7 @@ export default class ProvinceRepository {
 			await client.end()
 			returnArray = result.rows
 		} catch (error) {
-			console.log(error)
+			await logHelper.logError(error)
 			try {
 				await client.end()
 			} catch (e) {}
@@ -31,7 +32,7 @@ export default class ProvinceRepository {
 			await client.end()
 			if (result.rows.length > 0) row = result.rows[0]
 		} catch (error) {
-			console.log(error)
+			await logHelper.logError(error)
 			try { await client.end() } catch (e) {}
 		}
 		return row
@@ -49,7 +50,7 @@ export default class ProvinceRepository {
 			await client.end()
 			if (result.rows.length > 0) created = result.rows[0]
 		} catch (error) {
-			console.log(error)
+			await logHelper.logError(error)
 			try { await client.end() } catch (e) {}
 		}
 		return created
@@ -67,7 +68,7 @@ export default class ProvinceRepository {
 			await client.end()
 			if (result.rows.length > 0) updated = result.rows[0]
 		} catch (error) {
-			console.log(error)
+			await logHelper.logError(error)
 			try { await client.end() } catch (e) {}
 		}
 		return updated
@@ -83,7 +84,7 @@ export default class ProvinceRepository {
 			await client.end()
 			deleted = result.rowCount > 0
 		} catch (error) {
-			console.log(error)
+			await logHelper.logError(error)
 			try { await client.end() } catch (e) {}
 		}
 		return deleted
