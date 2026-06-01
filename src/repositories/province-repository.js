@@ -13,8 +13,9 @@ export default class ProvinceRepository {
 			const result = await client.query(sql)
 			await client.end()
 			returnArray = result.rows
+			await logHelper.log(`Se consiguió exitosamente ${returnArray.length} provinces`)
 		} catch (error) {
-			await logHelper.logError(error)
+			await logHelper.log(new Error(error))
 			try {
 				await client.end()
 			} catch (e) {}
@@ -30,9 +31,12 @@ export default class ProvinceRepository {
 			const sql = 'SELECT * FROM provinces WHERE id = $1'
 			const result = await client.query(sql, [id])
 			await client.end()
-			if (result.rows.length > 0) row = result.rows[0]
+			if (result.rows.length > 0) {
+				row = result.rows[0]
+				await logHelper.log(`Se consiguió exitosamente province con id=${id}`)
+			}
 		} catch (error) {
-			await logHelper.logError(error)
+			await logHelper.log(new Error(error))
 			try { await client.end() } catch (e) {}
 		}
 		return row
@@ -48,9 +52,12 @@ export default class ProvinceRepository {
 			const params = [entity.id, entity.name, entity.full_name, entity.latitude, entity.longitude, entity.display_order]
 			const result = await client.query(sql, params)
 			await client.end()
-			if (result.rows.length > 0) created = result.rows[0]
+			if (result.rows.length > 0) {
+				created = result.rows[0]
+				await logHelper.log(`Se creó exitosamente province con id=${created.id}`)
+			}
 		} catch (error) {
-			await logHelper.logError(error)
+			await logHelper.log(new Error(error))
 			try { await client.end() } catch (e) {}
 		}
 		return created
@@ -66,9 +73,12 @@ export default class ProvinceRepository {
 			const params = [entity.id, entity.name, entity.full_name, entity.latitude, entity.longitude, entity.display_order]
 			const result = await client.query(sql, params)
 			await client.end()
-			if (result.rows.length > 0) updated = result.rows[0]
+			if (result.rows.length > 0) {
+				updated = result.rows[0]
+				await logHelper.log(`Se actualizó exitosamente province con id=${updated.id}`)
+			}
 		} catch (error) {
-			await logHelper.logError(error)
+			await logHelper.log(new Error(error))
 			try { await client.end() } catch (e) {}
 		}
 		return updated
@@ -83,8 +93,9 @@ export default class ProvinceRepository {
 			const result = await client.query(sql, [id])
 			await client.end()
 			deleted = result.rowCount > 0
+			await logHelper.log(`Se eliminó exitosamente province con id=${id}`)
 		} catch (error) {
-			await logHelper.logError(error)
+			await logHelper.log(new Error(error))
 			try { await client.end() } catch (e) {}
 		}
 		return deleted

@@ -16,7 +16,7 @@ class LogHelper {
 	 * Almacena en un archivo y/o muestra por consola información del error.
 	 * @param {*} errorObject Error, string o cualquier objeto serializable
 	 */
-	async logError(errorObject) {
+	async log(errorObject) {
 		try {
 			const timestamp = new Date().toISOString()
 			let message = ''
@@ -25,18 +25,16 @@ class LogHelper {
 				message = errorObject.stack || errorObject.message
 			} else if (typeof errorObject === 'string') {
 				message = errorObject
-			} else {
-				try {
-					message = JSON.stringify(errorObject)
-				} catch (e) {
-					message = String(errorObject)
-				}
 			}
 
 			const logLine = `${timestamp} - ${message}\n`
 
 			if (this.logToConsoleEnabled) {
-				console.error(logLine)
+				if (errorObject instanceof Error) {
+					console.error(logLine)
+				} else {
+					console.log(logLine)
+				}
 			}
 
 			if (this.logToFileEnabled) {
