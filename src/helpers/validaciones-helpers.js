@@ -12,10 +12,6 @@ class LogHelper {
 		this.logToConsoleEnabled = (process.env.LOG_TO_CONSOLE_ENABLED || 'true').toLowerCase() === 'true'
 	}
 
-	/**
-	 * Almacena en un archivo y/o muestra por consola información del error.
-	 * @param {*} errorObject Error, string o cualquier objeto serializable
-	 */
 	async log(errorObject) {
 		try {
 			const timestamp = new Date().toISOString()
@@ -44,7 +40,6 @@ class LogHelper {
 				await fsPromises.appendFile(file, logLine, { encoding: 'utf8' })
 			}
 		} catch (err) {
-			// Si falla el logger, al menos mostramos en consola para no perder la traza
 			console.error('LogHelper failed:', err)
 		}
 	}

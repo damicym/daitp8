@@ -18,7 +18,9 @@ export default class ProvinceRepository {
 			await logHelper.log(new Error(error))
 			try {
 				await client.end()
-			} catch (e) {}
+			} catch (e) {
+				await logHelper.log(new Error(e))
+			}
 		}
 		return returnArray
 	}
@@ -37,7 +39,11 @@ export default class ProvinceRepository {
 			}
 		} catch (error) {
 			await logHelper.log(new Error(error))
-			try { await client.end() } catch (e) {}
+			try { 
+				await client.end() 
+			} catch (e) {
+				await logHelper.log(new Error(e))
+			}
 		}
 		return row
 	}
@@ -58,7 +64,11 @@ export default class ProvinceRepository {
 			}
 		} catch (error) {
 			await logHelper.log(new Error(error))
-			try { await client.end() } catch (e) {}
+			try { 
+				await client.end() 
+			} catch (e) { 
+				await logHelper.log(new Error(e)) 
+			}
 		}
 		return created
 	}
@@ -79,7 +89,11 @@ export default class ProvinceRepository {
 			}
 		} catch (error) {
 			await logHelper.log(new Error(error))
-			try { await client.end() } catch (e) {}
+			try { 
+				await client.end() 
+			} catch (e) {
+				await logHelper.log(new Error(e))
+			}
 		}
 		return updated
 	}
@@ -96,7 +110,11 @@ export default class ProvinceRepository {
 			await logHelper.log(`Se eliminó exitosamente province con id=${id}`)
 		} catch (error) {
 			await logHelper.log(new Error(error))
-			try { await client.end() } catch (e) {}
+			try { 
+				await client.end() 
+			} catch (e) {
+				await logHelper.log(new Error(e))
+			}
 		}
 		return deleted
 	}
