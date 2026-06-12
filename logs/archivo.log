@@ -1,1 +1,7 @@
 2026-06-01T14:30:06.423Z - Se consiguió exitosamente 10 provinces
+2026-06-12T11:06:26.823Z - Error: AggregateError
+    at ProvinceRepository.getAllAsync (file:///C:/Users/devandroid/Downloads/daitp8/src/repositories/province-repository.js:18:24)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async ProvinceService.getAllAsync (file:///C:/Users/devandroid/Downloads/daitp8/src/services/province-service.js:6:25)
+    at async file:///C:/Users/devandroid/Downloads/daitp8/src/controllers/province-controller.js:9:16
+2026-06-12T11:08:51.495Z - Se consiguió exitosamente 10 provinces
