@@ -1,0 +1,286 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Provinces API",
+    "description": "API REST para la gestión de provincias argentinas. Permite obtener, crear, actualizar y eliminar provincias.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "DAI TP8"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Provinces",
+      "description": "Endpoints para la gestión de provincias"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/api/province": {
+      "get": {
+        "tags": ["Provinces"],
+        "summary": "Obtener todas las provincias",
+        "description": "Retorna el listado completo de provincias ordenadas por display_order (NULLS LAST) y luego por id.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Lista de provincias obtenida exitosamente.",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Province" }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor.",
+            "schema": { "$ref": "#/definitions/ErrorResponse" }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Provinces"],
+        "summary": "Crear una nueva provincia",
+        "description": "Crea y persiste una nueva provincia con los datos proporcionados en el body. El campo id es requerido y debe ser único.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de la provincia a crear.",
+            "required": true,
+            "schema": { "$ref": "#/definitions/ProvinceInput" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Provincia creada exitosamente. Retorna el objeto creado.",
+            "schema": { "$ref": "#/definitions/Province" }
+          },
+          "500": {
+            "description": "Error interno del servidor o fallo al crear la provincia.",
+            "schema": { "$ref": "#/definitions/ErrorResponse" }
+          }
+        }
+      }
+    },
+    "/api/province/{id}": {
+      "get": {
+        "tags": ["Provinces"],
+        "summary": "Obtener una provincia por ID",
+        "description": "Retorna los datos de una provincia específica según su identificador numérico.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador numérico de la provincia.",
+            "required": true,
+            "type": "integer",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Provincia encontrada exitosamente.",
+            "schema": { "$ref": "#/definitions/Province" }
+          },
+          "404": {
+            "description": "No se encontró una provincia con el ID proporcionado.",
+            "schema": { "$ref": "#/definitions/ErrorResponse" }
+          },
+          "500": {
+            "description": "Error interno del servidor.",
+            "schema": { "$ref": "#/definitions/ErrorResponse" }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Provinces"],
+        "summary": "Actualizar una provincia existente",
+        "description": "Actualiza todos los campos de una provincia identificada por su ID. El ID se toma del parámetro de ruta y no debe enviarse en el body.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador numérico de la provincia a actualizar.",
+            "required": true,
+            "type": "integer",
+            "example": 1
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Nuevos datos de la provincia.",
+            "required": true,
+            "schema": { "$ref": "#/definitions/ProvinceUpdateInput" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Provincia actualizada exitosamente. Retorna el objeto actualizado.",
+            "schema": { "$ref": "#/definitions/Province" }
+          },
+          "404": {
+            "description": "No se encontró una provincia con el ID proporcionado.",
+            "schema": { "$ref": "#/definitions/ErrorResponse" }
+          },
+          "500": {
+            "description": "Error interno del servidor.",
+            "schema": { "$ref": "#/definitions/ErrorResponse" }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Provinces"],
+        "summary": "Eliminar una provincia",
+        "description": "Elimina permanentemente una provincia de la base de datos según su ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador numérico de la provincia a eliminar.",
+            "required": true,
+            "type": "integer",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Provincia eliminada exitosamente. No retorna contenido."
+          },
+          "404": {
+            "description": "No se encontró una provincia con el ID proporcionado.",
+            "schema": { "$ref": "#/definitions/ErrorResponse" }
+          },
+          "500": {
+            "description": "Error interno del servidor.",
+            "schema": { "$ref": "#/definitions/ErrorResponse" }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Province": {
+      "type": "object",
+      "description": "Objeto que representa una provincia argentina con sus datos geográficos.",
+      "required": ["id", "name", "full_name"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Identificador único de la provincia.",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "description": "Nombre corto de la provincia.",
+          "example": "Buenos Aires"
+        },
+        "full_name": {
+          "type": "string",
+          "description": "Nombre completo oficial de la provincia.",
+          "example": "Provincia de Buenos Aires"
+        },
+        "latitude": {
+          "type": "number",
+          "format": "float",
+          "description": "Latitud geográfica del centroide de la provincia.",
+          "example": -36.6769
+        },
+        "longitude": {
+          "type": "number",
+          "format": "float",
+          "description": "Longitud geográfica del centroide de la provincia.",
+          "example": -60.5588
+        },
+        "display_order": {
+          "type": "integer",
+          "description": "Orden de visualización de la provincia en listados. Puede ser nulo.",
+          "example": 1,
+          "x-nullable": true
+        }
+      }
+    },
+    "ProvinceInput": {
+      "type": "object",
+      "description": "Datos requeridos para crear una nueva provincia.",
+      "required": ["id", "name", "full_name"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Identificador único de la provincia. Debe ser único en la base de datos.",
+          "example": 25
+        },
+        "name": {
+          "type": "string",
+          "description": "Nombre corto de la provincia.",
+          "example": "Nueva Provincia"
+        },
+        "full_name": {
+          "type": "string",
+          "description": "Nombre completo oficial de la provincia.",
+          "example": "Provincia de Nueva Provincia"
+        },
+        "latitude": {
+          "type": "number",
+          "format": "float",
+          "description": "Latitud geográfica del centroide de la provincia.",
+          "example": -34.0
+        },
+        "longitude": {
+          "type": "number",
+          "format": "float",
+          "description": "Longitud geográfica del centroide de la provincia.",
+          "example": -64.0
+        },
+        "display_order": {
+          "type": "integer",
+          "description": "Orden de visualización. Puede ser nulo.",
+          "example": 25,
+          "x-nullable": true
+        }
+      }
+    },
+    "ProvinceUpdateInput": {
+      "type": "object",
+      "description": "Datos para actualizar una provincia existente. El ID se toma del parámetro de ruta.",
+      "required": ["name", "full_name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Nombre corto de la provincia.",
+          "example": "Buenos Aires"
+        },
+        "full_name": {
+          "type": "string",
+          "description": "Nombre completo oficial de la provincia.",
+          "example": "Provincia de Buenos Aires"
+        },
+        "latitude": {
+          "type": "number",
+          "format": "float",
+          "description": "Latitud geográfica del centroide de la provincia.",
+          "example": -36.6769
+        },
+        "longitude": {
+          "type": "number",
+          "format": "float",
+          "description": "Longitud geográfica del centroide de la provincia.",
+          "example": -60.5588
+        },
+        "display_order": {
+          "type": "integer",
+          "description": "Orden de visualización. Puede ser nulo.",
+          "example": 1,
+          "x-nullable": true
+        }
+      }
+    },
+    "ErrorResponse": {
+      "type": "string",
+      "description": "Mensaje de error en texto plano.",
+      "example": "Internal error"
+    }
+  }
+}

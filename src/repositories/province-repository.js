@@ -21,6 +21,7 @@ export default class ProvinceRepository {
 			} catch (e) {
 				await logHelper.log(new Error(e))
 			}
+			throw new Error(error)
 		}
 		return returnArray
 	}
@@ -44,6 +45,7 @@ export default class ProvinceRepository {
 			} catch (e) {
 				await logHelper.log(new Error(e))
 			}
+			throw new Error(error)
 		}
 		return row
 	}
@@ -69,6 +71,7 @@ export default class ProvinceRepository {
 			} catch (e) { 
 				await logHelper.log(new Error(e)) 
 			}
+			throw new Error(error)
 		}
 		return created
 	}
@@ -94,6 +97,7 @@ export default class ProvinceRepository {
 			} catch (e) {
 				await logHelper.log(new Error(e))
 			}
+			throw new Error(error)
 		}
 		return updated
 	}
@@ -115,6 +119,7 @@ export default class ProvinceRepository {
 			} catch (e) {
 				await logHelper.log(new Error(e))
 			}
+			throw new Error(error)
 		}
 		return deleted
 	}

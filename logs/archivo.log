@@ -5,3 +5,13 @@
     at async ProvinceService.getAllAsync (file:///C:/Users/devandroid/Downloads/daitp8/src/services/province-service.js:6:25)
     at async file:///C:/Users/devandroid/Downloads/daitp8/src/controllers/province-controller.js:9:16
 2026-06-12T11:08:51.495Z - Se consiguió exitosamente 10 provinces
+2026-09-18T11:23:27.508Z - Error: Error: getaddrinfo ENOTFOUND your_db_host
+    at ProvinceRepository.getAllAsync (file:///C:/Users/49549062/Documents/GitHub/daitp8/src/repositories/province-repository.js:18:24)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async ProvinceService.getAllAsync (file:///C:/Users/49549062/Documents/GitHub/daitp8/src/services/province-service.js:6:25)
+    at async file:///C:/Users/49549062/Documents/GitHub/daitp8/src/controllers/province-controller.js:22:16
+2026-09-18T11:25:47.728Z - Error: Error: getaddrinfo ENOTFOUND your_db_host
+    at ProvinceRepository.getAllAsync (file:///C:/Users/49549062/Documents/GitHub/daitp8/src/repositories/province-repository.js:18:24)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async ProvinceService.getAllAsync (file:///C:/Users/49549062/Documents/GitHub/daitp8/src/services/province-service.js:6:25)
+    at async file:///C:/Users/49549062/Documents/GitHub/daitp8/src/controllers/province-controller.js:22:16
