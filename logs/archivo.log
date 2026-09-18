@@ -15,3 +15,4 @@
     at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
     at async ProvinceService.getAllAsync (file:///C:/Users/49549062/Documents/GitHub/daitp8/src/services/province-service.js:6:25)
     at async file:///C:/Users/49549062/Documents/GitHub/daitp8/src/controllers/province-controller.js:22:16
+2026-09-18T11:39:05.404Z - Se consiguió exitosamente 10 provinces
